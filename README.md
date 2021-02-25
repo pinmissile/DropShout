@@ -38,4 +38,5 @@ api_credentials:
 ```
 
 *How do I get the game ID?*
+
 [Register an app](https://dev.twitch.tv/docs/authentication#registration) at Twitch.tv, and make an REST API [get for games](https://dev.twitch.tv/docs/api/reference#get-games), using the game name.
