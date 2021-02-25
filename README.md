@@ -9,9 +9,9 @@ Best applied via a daily cron job. I ran this with Python 3.8.1.
 Custom config via Confuse needs to be added by yourself. Name the file config.yaml and place it in the directory below, depending on your system:
 
 ```
-macOS: ~/.config/app and ~/Library/Application Support/eso_twitch_drops_notifier
-Other Unix: ~/.config/eso_twitch_drops_notifier and /etc/eso_twitch_drops_notifier
-Windows: %APPDATA%\eso_twitch_drops_notifier where the APPDATA environment variable falls back to %HOME%\AppData\Roaming if undefined
+macOS: ~/.config/dropshout and ~/Library/Application Support/dropshout
+Other Unix: ~/.config/dropshout and /etc/dropshout
+Windows: %APPDATA%\dropshout where the APPDATA environment variable falls back to %HOME%\AppData\Roaming if undefined
 ```
 
 Config format:
