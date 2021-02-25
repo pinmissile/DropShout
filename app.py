@@ -14,11 +14,9 @@ def main():
 
 def send_mails(game):
     game_url = 'https://www.twitch.tv/directory/game/' + quote(game['name'])
-    print(game_url)
     msg = MIMEText(u'Hello!<br>\
-                     This is an automated notification to tell you that you can get Twitch drops from {} streams today!<br>\
-                     <a href="' + game_url + '">Check it out!</a>'.format(game['name']), 'html')
-    print(msg)
+                     This is an automated notification telling you that there\'s an ongoing Twitch Drops promotion for ' + game['name'] + ' today!<br>\
+                     <a href="' + game_url + '">Check it out!</a>', 'html')
     msg['Subject'] = "{} Twitch Drops today!".format(game['name'])
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(config['mail']['smtp']['server_hostname'].get(),
