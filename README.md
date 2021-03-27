@@ -19,18 +19,18 @@ Config format:
 ```
 mail:
   smtp:
-    server_hostname: <'YOUR MAIL SERVER'>
+    server_hostname: '<YOUR MAIL SERVER>'
     port: <YOUR MAIL SERVER PORT (Likely 465)>
     login:
-      username: <'YOUR USERNAME'>
-      password: <'YOUR PASSWORD'>
+      username: '<YOUR USERNAME>'
+      password: '<YOUR PASSWORD>'
 
-games: [{'name': 'Game #1 Name',
-         'id': "12345",
-         'subscribers': ['bill.gates@microsoft.com']},
-         {'name': 'Game #2 Name',
-         'id': "67890",
-         'subscribers': ['elon.musk@tesla.xyz']}] # And etc.
+games: [{'name': '<GAME NAME>',
+         'id': '<GAME ID>',
+         'subscribers': ['<MAIL #1>', '<MAIL #2>']},
+         {'name': '<GAME NAME>',
+         'id': '<GAME ID>,
+         'subscribers': ['<MAIL #1>']}] # And etc.
 
 api_credentials:
   client_id: <'YOUR CLIENT ID'>
