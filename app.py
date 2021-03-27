@@ -7,24 +7,29 @@ config = confuse.Configuration('dropshout', __name__)
 def main():
     twitch = TwitchAPI()
     for game in config['games'].get():
-        if twitch.is_there_a_drop(game['id']):
+        game_data = twitch.is_there_a_drop(game['id'])
+        if game_data:
             print("Drops for {}!".format(game['name']))
-            send_mails(game)
+            send_mails(game, game_data)
         time.sleep(1)  # This is so we don't spam the server and get blocked.
 
-def send_mails(game):
-    game_url = 'https://www.twitch.tv/directory/game/' + quote(game['name'])
-    msg = MIMEText(u'Hello!<br>\
-                     This is an automated notification telling you that there\'s an ongoing Twitch Drops promotion for ' + game['name'] + ' today!<br>\
-                     <a href="' + game_url + '">Check it out!</a>', 'html')
-    msg['Subject'] = "{} Twitch Drops today!".format(game['name'])
+def send_mails(game_config, game_data):
+    msg_string = 'Hello!<br><br>\
+        This is an automated notification of an ongoing Twitch Drops promotion for ' + game_data[0]['game_name'] + ' today!<br><br>\
+            Here are some stream links:<br><br>'
+    for stream in [x for x in game_data if 'c2542d6d-cd10-4532-919b-3d19f30a768b' in x['tag_ids']]:
+        msg_string += '<a href="https://www.twitch.tv/' + stream['user_login'] + '">' + stream['title'] +'</a><br>'
+    print(msg_string)
+    msg = MIMEText(msg_string, 'html')
+    msg['Subject'] = "{} Twitch Drops today!".format(game_data[0]['game_name'])
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL(config['mail']['smtp']['server_hostname'].get(),
                           config['mail']['smtp']['port'].get(),
                           context=context) as server:
         server.login(config['mail']['smtp']['login']['username'].get(),
                      config['mail']['smtp']['login']['password'].get())
-        for reciever in game['subscribers']:
+        for reciever in game_config['subscribers']:
+            msg['To'] = reciever
             server.sendmail(config['mail']['smtp']['login']['username'].get(),
                             reciever,
                             msg.as_string())
@@ -45,7 +50,7 @@ class TwitchAPI():
         for data in response.json()['data']:
             if 'c2542d6d-cd10-4532-919b-3d19f30a768b' in data['tag_ids']:
                 # This is the UUID tag for "Drops Enabled"
-                return True
+                return response.json()['data']
         return False
 
 if __name__ == "__main__":
