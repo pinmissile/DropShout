@@ -20,7 +20,8 @@ def send_mails(game_config, game_data):
             Here are some stream links:<br><br>'
     # Build stream links
     for stream in [x for x in game_data if 'c2542d6d-cd10-4532-919b-3d19f30a768b' in x['tag_ids']]:
-        msg_string += '<a href="https://www.twitch.tv/' + stream['user_login'] + '">' + stream['title'] +'</a><br>',
+        msg_string += stream['user_name'] + ': <a href="https://www.twitch.tv/' + \
+            stream['user_login'] + '">' + stream['title'] +'</a><br>'
     # Build mail
     msg = MIMEText(msg_string, 'html')
     msg['Subject'] = "{} Twitch Drops today!".format(game_data[0]['game_name'])
