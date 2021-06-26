@@ -25,6 +25,7 @@ def send_mails(game_config, game_data):
     # Build mail
     msg = MIMEText(msg_string, 'html')
     msg['Subject'] = "{} Twitch Drops today!".format(game_data[0]['game_name'])
+    msg['From'] = config['sender']
     context = ssl.create_default_context()
     # Connect to the server and send the mail.
     with smtplib.SMTP_SSL(config['mail']['smtp']['server_hostname'].get(),
