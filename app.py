@@ -35,7 +35,6 @@ def send_mails(game_config, game_data):
                      config['mail']['smtp']['login']['password'].get())
         for reciever in game_config['subscribers']:
             # Send out one mail individually, as to not share mail addresses with everyone who is subscribed.
-            msg['To'] = reciever
             server.sendmail(config['mail']['smtp']['login']['username'].get(),
                             reciever,
                             msg.as_string())
